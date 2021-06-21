@@ -283,6 +283,9 @@ func (rm *resourceManager) sdkFind(
 
 	rm.setStatusDefaults(ko)
 
+	if brokerCreateInProgress(&resource{ko}) {
+		return &resource{ko}, requeueWaitWhileCreating
+	}
 	return &resource{ko}, nil
 }
 
